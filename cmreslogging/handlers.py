@@ -215,7 +215,8 @@ class CMRESHandler(logging.Handler):
                                              use_ssl=self.use_ssl,
                                              verify_certs=self.verify_certs,
                                              connection_class=RequestsHttpConnection,
-                                             serializer=self.serializer)
+                                             serializer=self.serializer,
+                                             timeout=60)
             return self._client
 
         if self.auth_type == CMRESHandler.AuthType.BASIC_AUTH:
@@ -225,7 +226,8 @@ class CMRESHandler(logging.Handler):
                                      use_ssl=self.use_ssl,
                                      verify_certs=self.verify_certs,
                                      connection_class=RequestsHttpConnection,
-                                     serializer=self.serializer)
+                                     serializer=self.serializer,
+                                     timeout=60)
             return self._client
 
         if self.auth_type == CMRESHandler.AuthType.KERBEROS_AUTH:
@@ -237,7 +239,8 @@ class CMRESHandler(logging.Handler):
                                  verify_certs=self.verify_certs,
                                  connection_class=RequestsHttpConnection,
                                  http_auth=HTTPKerberosAuth(mutual_authentication=DISABLED),
-                                 serializer=self.serializer)
+                                 serializer=self.serializer,
+                                 timeout=60)
 
         if self.auth_type == CMRESHandler.AuthType.AWS_SIGNED_AUTH:
             if not AWS4AUTH_SUPPORTED:
@@ -250,7 +253,8 @@ class CMRESHandler(logging.Handler):
                     use_ssl=self.use_ssl,
                     verify_certs=True,
                     connection_class=RequestsHttpConnection,
-                    serializer=self.serializer
+                    serializer=self.serializer,
+                    timeout=60
                 )
             return self._client
 
